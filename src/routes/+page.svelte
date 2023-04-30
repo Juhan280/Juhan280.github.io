@@ -1,2 +1,12 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<head>
+	<title>My Page</title>
+</head>
+
+<h1>Welcome to my page!</h1>
+<p>This is some sample text.</p>
+
+<style>
+	h1 {
+		text-align: center;
+	}
+</style>
