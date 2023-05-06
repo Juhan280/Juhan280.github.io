@@ -30,12 +30,9 @@ body {
   min-height: 100vh;
 }
 
-.horizontal {
+.card {
   display: flex;
   flex-direction: column;
-}
-
-.card {
   padding: 2em;
 }
 

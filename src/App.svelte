@@ -18,7 +18,7 @@
   <h6>I am not a web dev</h6>
 
   {#each repos as repo}
-    <div class="card horizontal">
+    <div class="card">
       <a href={repo.url} class="button">{repo.name}</a>
       <a href={repo.homepage} class="button">Homepage</a>
     </div>
