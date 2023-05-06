@@ -32,7 +32,12 @@ jobs:
       - name: Fetch repos
         env: 
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: node -p "const repos = $(gh api /users/Juhan280/repos);"
+        run: node -p "const repos = $(gh api /users/Juhan280/repos); repos.filter(x => ! x.fork && ! x.private && ! ['Juhan280', 'Juhan280.github.io'].includes(x.name))"
+        
+      - name: Upload Artifacts
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: 'dist/'
 
   deploy:
     needs: build_site
@@ -47,11 +52,6 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - name: Upload Artifacts
-        uses: actions/upload-pages-artifact@v1
-        with:
-          path: 'dist/'
-
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v1
