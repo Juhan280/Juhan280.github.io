@@ -14,10 +14,6 @@
   });
 </script>
 
-<svelte:head>
-  <title>This is a title</title>
-</svelte:head>
-
 <main>
   <h6>I am not a web dev</h6>
 
