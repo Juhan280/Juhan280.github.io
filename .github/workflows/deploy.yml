@@ -32,7 +32,7 @@ jobs:
       - name: Fetch repos
         env: 
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: node -p "const repos = $(gh api /users/Juhan280/repos); JSON.stringify(repos.filter(x => ! x.fork && ! x.private && ! ['Juhan280', 'Juhan280.github.io'].includes(x.name)).map(x => ({name: x.name, url: x.html_url,  homepage: x.homepage})))" > dist/gh-repos.json
+        run: node -p "const repos = $(gh api /users/Juhan280/repos); JSON.stringify(repos.filter(x => ! x.fork && ! x.private && ! ['Juhan280', 'Juhan280.github.io'].includes(x.name)).map(x => ({name:\ x.name, url: x.html_url, homepage: x.homepage})))" > dist/gh-repos.json
 
   deploy:
     needs: build_site
