@@ -7,9 +7,16 @@ on:
 jobs:
   build_site:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: Install Node
+        uses: checkout/setup-node@v2
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2
@@ -22,10 +29,10 @@ jobs:
       - name: Build
         run: pnpm run build
 
-      - name: Upload Artifacts
-        uses: actions/upload-pages-artifact@v1
-        with:
-          path: 'build/'
+      - name: Fetch repos
+        env: 
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node -p "const repos = $(gh api /users/Juhan280/repos); JSON.stringify(repos.filter(x => ! x.fork && ! x.private && ! ['Juhan280', 'Juhan280.github.io'].includes(x.name)).map(x => ({name: x.name, url: x.html_url,  homepage: x.homepage})))" > dist/gh-repos.json
 
   deploy:
     needs: build_site
@@ -40,6 +47,11 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
+      - name: Upload Artifacts
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: 'dist/'
+
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v1
