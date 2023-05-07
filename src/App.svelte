@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import Background from "./Background.svelte";
 
   interface Repo {
     name: string;
@@ -15,6 +16,7 @@
 </script>
 
 <main>
+  <Background />
   <h6>I am not a web dev</h6>
 
   {#each repos as repo}
